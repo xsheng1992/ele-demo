@@ -10,6 +10,7 @@ html, body {
   font-size: 20px;
   color: #333;
   min-width: 750px;
+  height: 100%;
 }
 a {
   outline: none!important;
@@ -35,12 +36,52 @@ a {
           filter: blur(10px);
 }
 
+#app {
+  height: 100%;
+}
 .container {
   width: 750px;
+  height: 100%;
   margin: 0 auto;
 }
 
 /*index*/
 .seller-list {
   font-size: 34px;
+}
+
+.icon-0 {
+  background: url(../images/icons/decrease_1@2x.png) no-repeat;
+}
+.icon-1 {
+  background: url(../images/icons/discount_1@2x.png) no-repeat;
+}
+.icon-2 {
+  background: url(../images/icons/special_1@2x.png) no-repeat;
+}
+.icon-3 {
+  background: url(../images/icons/invoice_1@2x.png) no-repeat;
+}
+.icon-4 {
+  background: url(../images/icons/guarantee_1@2x.png) no-repeat;
+}
+.icon2-0 {
+  background: url(../images/icons/decrease_4@2x.png) no-repeat;
+  background-size: 100%;
+}
+.icon2-1 {
+  background: url(../images/icons/discount_4@2x.png) no-repeat;
+  background-size: 100%;
+}
+.icon2-2 {
+  background: url(../images/icons/special_4@2x.png) no-repeat;
+  background-size: 100%;
+}
+.icon2-3 {
+  background: url(../images/icons/invoice_4@2x.png) no-repeat;
+  background-size: 100%;
+}
+.icon2-4 {
+  background: url(../images/icons/guarantee_4@2x.png) no-repeat;
+  background-size: 100%;
 }

@@ -1,26 +1,10 @@
-import * as types from '../mutation-types'
-import seller_info from './seller/seller_info.js'
-
-// getters
-const getters = {
-  checkoutStatus: state => state.checkoutStatus
-}
-
-// actions
-const actions = {
-  setSellerData({commit}, {sellerData}) {
-    return commit(types.SET_SELLER, sellerData);
-  }
-}
-
-// mutations
-const mutations = {
-  
-}
+//import * as types from '../mutation-types'
+import info from './seller/seller_info.js'
+import goods from './seller/seller_goods.js'
 
 export default {
   modules: {
-    sellerInfo: seller_info
-  },
-  actions
+    sellerInfo: info,
+    sellerGoods: goods
+  }
 }
