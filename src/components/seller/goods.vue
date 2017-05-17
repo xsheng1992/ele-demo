@@ -2,30 +2,40 @@
   <transition name="slide">
     <div class="goods-page">
       <div class="type-list">
-        <ul>
-          <li v-for="(item, index) of typeList">
-            <a :href="'#col'+index"><i :class="getIconType(item.type)"></i>{{item.name}}</a>
-          </li>
-        </ul>
+        <div id="typeWrapper" class="wrapper">
+          <div class="scroller">
+            <ul>
+              <li v-for="(item, index) of typeList">
+                <div class="cell">
+                  <i :class="getIconType(item.type)"></i>{{item.name}}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="goods-list">
-        <div v-for="(type, index) of goods" :id="'col'+index">
-          <p class="type-title">{{type.name}}</p>
-          <ul class="type-foods">
-            <li v-for="foods of type.foods">
-              <div class="food-icon">
-                <img :src="foods.icon">
-              </div>
-              <div class="food-text">
-                <h3>{{foods.name}}</h3>
-                <p v-if="foods.description" class="description">{{foods.description}}</p>
-                <p>
-                  <span v-if="foods.sellCount">月售{{foods.sellCount}}份</span>
-                  <span v-if="foods.rating">好评率{{foods.rating}}%</span>
-                </p>
-              </div>
-            </li>
-          </ul>
+        <div id="goodsWrapper" class="wrapper">
+          <div class="scroller">
+            <div v-for="(type, index) of goods" :id="'col'+index">
+              <p class="type-title">{{type.name}}</p>
+              <ul class="type-foods">
+                <li v-for="foods of type.foods">
+                  <div class="food-icon">
+                    <img :src="foods.icon">
+                  </div>
+                  <div class="food-text">
+                    <h3>{{foods.name}}</h3>
+                    <p v-if="foods.description" class="description">{{foods.description}}</p>
+                    <p>
+                      <span v-if="foods.sellCount">月售{{foods.sellCount}}份</span>
+                      <span v-if="foods.rating">好评率{{foods.rating}}%</span>
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -37,6 +47,11 @@ import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
 
 export default {
+  data(){
+    return {
+
+    }
+  },
   computed: {
     ...mapGetters({
       'typeList': 'getTypeList',
@@ -54,6 +69,13 @@ export default {
         default: return '';
       }
     }
+  },
+  mounted() {
+    //延时等待dom渲染完成
+    setTimeout(function(){
+      new IScroll('#typeWrapper');
+      new IScroll('#goodsWrapper');
+    }, 100);
   }
 }
 </script>
@@ -68,8 +90,8 @@ export default {
   .type-list {
     width: 160px;
     background-color: #f3f5f7;
-    overflow-y: auto;
     flex-shrink: 0;
+    position: relative;
   }
     .type-list ul>li {
       display: table;
@@ -77,30 +99,32 @@ export default {
       height: 108px;
       padding: 0 24px;
     }
-    .type-list ul>li>a {
-      display: table-cell;
-      width: 100%;
-      height: 100%;
-      font-size: 24px;
-      line-height: 28px;
-      color: rgb(7,17,27);
-      text-decoration: none;
-      vertical-align: middle;
-      border-bottom: 1px solid rgba(7,17,27,.1);
-    }
-      .type-list ul>li>a .icon {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        position: relative;
-        top: 2px;
-        margin-right: 3px;
+      .type-list ul>li>.cell {
+        display: table-cell;
+        width: 100%;
+        height: 100%;
+        font-size: 24px;
+        line-height: 28px;
+        color: rgb(7,17,27);
+        vertical-align: middle;
+        border-bottom: 1px solid rgba(7,17,27,.1);
+        cursor: pointer;
       }
+      .type-list ul>li:last-child>.cell { border-bottom: none;}
+        .type-list ul>li>.cell .icon {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          position: relative;
+          top: 2px;
+          margin-right: 3px;
+        }
 
   /*右边商品列表*/
   .goods-list {
     width: 100%;
     overflow-y: auto;
+    position: relative;
   }
     .type-title {
       height: 52px;

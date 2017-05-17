@@ -14,4 +14,5 @@ new Vue({
   render: h => h(Index)
 }).$mount("#app");
 
-document.body.insertAdjacentHTML("afterBegin", '<div style="display:none;">' + svgSprite + '</div>')
+document.body.insertAdjacentHTML("afterBegin", '<div style="display:none;">' + svgSprite + '</div>');
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, true);

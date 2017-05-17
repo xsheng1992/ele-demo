@@ -56,7 +56,7 @@ export default {
       border-bottom: 2px solid rgba(7,17,27,.1);
       list-style: none;
       display: flex;
-      flex-wrap: nowrap;
+      flex-shrink: 0;
     }
     .content-nav>li {
       width: 100%;
