@@ -15,7 +15,9 @@ export default new VueRouter ({
       component: Seller,
       children: [
         {path: '', redirect: 'goods'},
-        {path: 'goods', component: Goods}
+        {path: 'goods', component: Goods},
+        {path: 'rate', component: Goods},
+        {path: 'shop', component: Goods}
       ]
     },
     {path: '*', redirect: '/'}

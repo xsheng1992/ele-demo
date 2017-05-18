@@ -4,9 +4,9 @@
       <seller-header></seller-header>
       <div class="content">
         <ul class="content-nav">
-          <li><router-link to="/seller/goods">商品</router-link></li>
-          <li><router-link to="/">评价</router-link></li>
-          <li><router-link to="/">商家</router-link></li>
+          <li :class="{active: location === '/seller/goods'}"><router-link to="/seller/goods">商品</router-link></li>
+          <li :class="{active: location === '/seller/rate'}"><router-link to="/seller/rate">评价</router-link></li>
+          <li :class="{active: location === '/seller/shop'}"><router-link to="/seller/shop">商家</router-link></li>
         </ul>
         <router-view></router-view>
       </div>
@@ -23,6 +23,11 @@ import header from '../components/seller/header.vue';
 import infopage from '../components/seller/infopage.vue';
 
 export default {
+  data(){
+    return {
+      location: '/seller/goods'
+    }
+  },
   components: {
     "seller-header": header,
     "seller-infopage": infopage
@@ -31,6 +36,11 @@ export default {
     ...mapGetters({
       detailPage: 'getDetailState'
     })
+  },
+  watch: {
+    '$route'(to,from) {
+      this.location = this.$route.path
+    }
   },
   created() {
     this.$store.dispatch('getData', {id: '0001'});
@@ -70,5 +80,6 @@ export default {
         text-align: center;
         color: rgb(77,85,93);
       }
+      .content-nav>li.active>a { color: rgb(240,20,20);}
 </style>
 
