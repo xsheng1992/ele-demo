@@ -128,8 +128,8 @@ export default {
     let vm = this;
     //延时等待dom渲染完成
     setTimeout(function(){
-      new IScroll('#typeWrapper', {mouseWheel: true});
-      goodsScroller = new IScroll('#goodsWrapper', {mouseWheel: true});
+      new IScroll('#typeWrapper', {mouseWheel: true, click: true});
+      goodsScroller = new IScroll('#goodsWrapper', {mouseWheel: true, click: true});
 
       //获取各类别的高度 
       let typelist = document.querySelector(".goods-list .scroller").childNodes

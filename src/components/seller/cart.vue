@@ -95,6 +95,7 @@ export default {
     }
   .cart-account {
     width: 210px;
+    height: 100%;
     flex-shrink: 0;
   }
     .btn-account {
