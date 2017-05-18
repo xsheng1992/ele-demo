@@ -37,7 +37,13 @@
                         <span class="gray" v-if="foods.oldPrice">¥ {{foods.oldPrice}}</span>
                       </div>
                       <div class="count">
-                        <button class="btn-add">
+                        <span v-if="hasGood(foods.name)">
+                          <button class="btn-remove" @click="removeItem(foods.name)">
+                            <svg class="sicon-remove"><use xlink:href="#sicon-remove_circle_outline"></use></svg>
+                          </button>
+                          <span class="good-count">{{hasGood(foods.name)}}</span>
+                        </span>
+                        <button class="btn-add" @click="addItem(foods)">
                           <svg class="sicon-add"><use xlink:href="#sicon-add_circle"></use></svg>
                         </button>
                       </div>
@@ -69,7 +75,8 @@ export default {
   computed: {
     ...mapGetters({
       'typeList': 'getTypeList',
-      'goods': 'getGoods'
+      'goods': 'getGoods',
+      'cart': 'getCartInfo'
     }),
     computedTop() {
       console.log(event)
@@ -101,6 +108,20 @@ export default {
     setTypeIndex(height) {
       height = Math.abs(height)+1;
       this.typeIndex = this.getIndex(height, this.typeHeight);
+    },
+    addItem(food) {
+      this.$store.commit(types.ADD_GOOD, {
+        name: food.name,
+        price: food.price,
+        count: 1
+      });
+    },
+    removeItem(name) {
+      this.$store.commit(types.REMOVE_GOOD, name);
+    },
+    hasGood(name) {
+      let good = this.cart.find(item=>item.name === name);
+      return good?good.count:false;
     }
   },
   mounted() {
@@ -137,6 +158,7 @@ export default {
     flex-shrink: 0;
     position: relative;
   }
+    .type-list ul { padding-bottom: 20px;}
     .type-list ul>li {
       display: table;
       width: 100%;
@@ -148,6 +170,7 @@ export default {
         width: 100%;
         height: 100%;
         font-size: 24px;
+        font-weight: 200;
         line-height: 28px;
         color: rgb(7,17,27);
         vertical-align: middle;
@@ -164,6 +187,7 @@ export default {
           margin-right: 3px;
         }
     .type-list ul>li.active { background-color: #fff;}
+      .type-list ul>li.active>.cell { font-weight: normal}
       .type-list ul>li.active>.cell,  .type-list ul>li.active+li>.cell{ border-top: none;}
 
   /*右边商品列表*/
@@ -251,17 +275,29 @@ export default {
           .cart-box .count {
             width: 60%;
             text-align: right;
-          }
-            .cart-box .count .btn-add {
+          } 
+            .cart-box .count .good-count {
+              display: inline-block;
+              width: 48px;
+              text-align: center;
+              font-size: 22px;
+              line-height: 48px;
+              color: rgb(147,153,159);
+              vertical-align: middle;
+            }
+            .cart-box .count .btn-add,
+            .cart-box .count .btn-remove {
+              display: inline-block;
               width: 48px;
               height: 48px;
               border: none;
               outline: none;
               background-color: transparent;
               padding: 0;
-              display: inline-block;
+              vertical-align: middle;
             }
-              .cart-box .count .btn-add>.sicon-add {
+              .cart-box .count .btn-add>.sicon-add,
+              .cart-box .count .btn-remove>.sicon-remove {
                 width: 48px;
                 height: 48px;
                 fill: #00a0dc;

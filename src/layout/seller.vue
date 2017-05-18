@@ -10,8 +10,7 @@
         </ul>
         <router-view></router-view>
       </div>
-      <!--
-      <seller-cart></seller-cart>-->
+      <seller-cart></seller-cart>
     </div>
     <seller-infopage></seller-infopage>
   </div>
@@ -21,6 +20,7 @@
 import {mapGetters} from 'vuex'
 import header from '../components/seller/header.vue';
 import infopage from '../components/seller/infopage.vue';
+import cart from '../components/seller/cart.vue';
 
 export default {
   data(){
@@ -30,7 +30,8 @@ export default {
   },
   components: {
     "seller-header": header,
-    "seller-infopage": infopage
+    "seller-infopage": infopage,
+    "seller-cart": cart
   },
   computed: {
     ...mapGetters({
