@@ -4,14 +4,15 @@
       <span class="red small">¥</span><span class="red"> {{foodData.price}}</span>
       <span class="gray" v-if="foodData.oldPrice">¥ {{foodData.oldPrice}}</span>
     </div>
-    <div class="count">
+    <div class="count" v-on:click.stop>
       <span v-if="hasGood(foodData.name)">
         <button class="btn-remove" @click="removeItem(foodData.name)">
           <svg class="sicon-remove"><use xlink:href="#sicon-remove_circle_outline"></use></svg>
         </button>
         <span class="good-count">{{hasGood(foodData.name)}}</span>
       </span>
-      <button class="btn-add" @click="addItem(foodData)">
+      <button class="btn-add-long" v-if="foodDetail&&!cart" @click="addItem(foodData)">加入购物车</button>
+      <button class="btn-add" v-else="" @click="addItem(foodData)">
         <svg class="sicon-add"><use xlink:href="#sicon-add_circle"></use></svg>
       </button>
     </div>
@@ -23,7 +24,7 @@ import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
 
 export default {
-  props: ['foodData'],
+  props: ['foodData','foodDetail'],
   computed: {
     ...mapGetters({
       cart: 'getCartState'
@@ -111,4 +112,13 @@ export default {
         height: 48px;
         fill: #00a0dc;
       }
+    .count .btn-add-long {
+      width: 148px;
+      height: 48px;
+      border: none;
+      border-radius: 24px;
+      background-color: #00a0dc;
+      color: #fff;
+      font-size: 20px;
+    }
 </style>

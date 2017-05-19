@@ -20,7 +20,7 @@
             <div v-for="(type, index) of goods" :id="'col'+index">
               <p class="type-title">{{type.name}}</p>
               <ul class="type-foods">
-                <li v-for="foods of type.foods">
+                <li v-for="foods of type.foods" @click="showFoodDetail(foods)">
                   <div class="food-icon">
                     <img :src="foods.icon">
                   </div>
@@ -39,6 +39,7 @@
           </div>
         </div>
       </div>
+      <router-view></router-view>
     </div>
   </transition>
 </template>
@@ -96,6 +97,10 @@ export default {
     hasGood(name) {
       let good = this.cart.find(item=>item.name === name);
       return good?good.count:false;
+    },
+    showFoodDetail(food) {
+      this.$store.commit(types.SET_FOOD, food);
+      this.$router.push({path: '/seller/goods/detail'});
     }
   },
   mounted() {
