@@ -32,16 +32,10 @@ export default {
   },
   methods: {
     getIconType(type) {
-      switch(type) {
-        case 0: return 'icon icon-0';
-        case 1: return 'icon icon-1';
-        case 2: return 'icon icon-2';
-        case 3: return 'icon icon-3';
-        case 4: return 'icon icon-4';
-      }
+      return type>=0?'icon icon-'+type:'';
     },
     showDetail() {
-      this.$store.commit(types.SHOW_DETAIL);
+      this.$store.commit(types.SHOW_FDETAIL);
     }
   }
 }

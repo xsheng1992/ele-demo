@@ -13,6 +13,7 @@
       <seller-cart></seller-cart>
     </div>
     <seller-infopage></seller-infopage>
+    <cart-detail></cart-detail>
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import {mapGetters} from 'vuex'
 import header from '../components/seller/header.vue';
 import infopage from '../components/seller/infopage.vue';
 import cart from '../components/seller/cart.vue';
+import cartdetail from '../components/seller/cartdetail.vue';
 
 export default {
   data(){
@@ -31,11 +33,12 @@ export default {
   components: {
     "seller-header": header,
     "seller-infopage": infopage,
-    "seller-cart": cart
+    "seller-cart": cart,
+    "cart-detail": cartdetail
   },
   computed: {
     ...mapGetters({
-      detailPage: 'getDetailState'
+      detailPage: 'getSellerInfoState'
     })
   },
   watch: {
@@ -54,6 +57,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
 }
   .content {
     display: flex;

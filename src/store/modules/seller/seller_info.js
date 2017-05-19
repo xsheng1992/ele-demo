@@ -10,7 +10,7 @@ const getters = {
   getSellerInfo() {
     return state.seller_info
   },
-  getDetailState() {
+  getSellerInfoState() {
     return state.showDetail
   }
 }
@@ -27,10 +27,10 @@ const mutations = {
   [types.SET_SELLER] (state, data) {
     state.seller_info = data
   },
-  [types.SHOW_DETAIL] (state, data) {
+  [types.SHOW_FDETAIL] (state, data) {
     state.showDetail = true
   },
-  [types.HIDE_DETAIL] (state, data) {
+  [types.HIDE_FDETAIL] (state, data) {
     state.showDetail = false
   }
 }

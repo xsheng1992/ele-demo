@@ -7,7 +7,7 @@
             <ul>
               <li v-for="(item, index) of typeList" @click="scrollTo(index)" :class="{active: typeIndex === index}">
                 <div class="cell">
-                  <i :class="getIconType(item.type)"></i>{{item.name}}
+                  <i :class="item.type>=0?'icon icon2-'+item.type:''"></i>{{item.name}}
                 </div>
               </li>
             </ul>
@@ -31,23 +31,7 @@
                       <span v-if="foods.sellCount">月售{{foods.sellCount}}份</span>
                       <span v-if="foods.rating">好评率{{foods.rating}}%</span>
                     </p>
-                    <div class="cart-box">
-                      <div class="price">
-                        <span class="red small">¥</span><span class="red"> {{foods.price}}</span>
-                        <span class="gray" v-if="foods.oldPrice">¥ {{foods.oldPrice}}</span>
-                      </div>
-                      <div class="count">
-                        <span v-if="hasGood(foods.name)">
-                          <button class="btn-remove" @click="removeItem(foods.name)">
-                            <svg class="sicon-remove"><use xlink:href="#sicon-remove_circle_outline"></use></svg>
-                          </button>
-                          <span class="good-count">{{hasGood(foods.name)}}</span>
-                        </span>
-                        <button class="btn-add" @click="addItem(foods)">
-                          <svg class="sicon-add"><use xlink:href="#sicon-add_circle"></use></svg>
-                        </button>
-                      </div>
-                    </div>
+                    <counter :foodData="foods"></counter>
                   </div>
                 </li>
               </ul>
@@ -62,6 +46,7 @@
 <script type="text/ecmascript-6">
 import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
+import counter from './counter.vue'
 
 let goodsScroller = ''
 
@@ -72,28 +57,17 @@ export default {
       typeHeight: []
     }
   },
+  components: {
+    'counter': counter
+  },
   computed: {
     ...mapGetters({
-      'typeList': 'getTypeList',
-      'goods': 'getGoods',
-      'cart': 'getCartInfo'
-    }),
-    computedTop() {
-      console.log(event)
-      return this.scrollTop;
-    }
+      typeList: 'getTypeList',
+      goods: 'getGoods',
+      cart: 'getCartState'
+    })
   },
   methods: {
-    getIconType(type) {
-      switch(type) {
-        case 0: return 'icon icon2-0';
-        case 1: return 'icon icon2-1';
-        case 2: return 'icon icon2-2';
-        case 3: return 'icon icon2-3';
-        case 4: return 'icon icon2-4';
-        default: return '';
-      }
-    },
     scrollTo(index) {
       let element = document.querySelector('#col'+index);
       goodsScroller.scrollToElement(element, 500);
@@ -247,59 +221,4 @@ export default {
           color: rgb(147,153,159);
         }
           .food-text>p span+span { margin-left: 20px;}
-        .cart-box {
-          display: flex;
-        }
-          .cart-box .price {
-            width: 40%;
-            flex-shrink: 0;
-          }
-            .cart-box .price span.red {
-              display: inline-block;
-              font-size: 28px;
-              line-height: 48px;
-              color: rgb(240,20,20);
-            }
-            .cart-box .price span.gray {
-              display: inline-block;
-              font-size: 20px;
-              line-height: 20px;
-              color: rgb(147,153,159);
-              margin-left: 16px;
-              text-decoration: line-through;
-              vertical-align: super;
-            }
-            .cart-box .price span.small {
-              font-size: 20px;
-            }
-          .cart-box .count {
-            width: 60%;
-            text-align: right;
-          } 
-            .cart-box .count .good-count {
-              display: inline-block;
-              width: 48px;
-              text-align: center;
-              font-size: 22px;
-              line-height: 48px;
-              color: rgb(147,153,159);
-              vertical-align: middle;
-            }
-            .cart-box .count .btn-add,
-            .cart-box .count .btn-remove {
-              display: inline-block;
-              width: 48px;
-              height: 48px;
-              border: none;
-              outline: none;
-              background-color: transparent;
-              padding: 0;
-              vertical-align: middle;
-            }
-              .cart-box .count .btn-add>.sicon-add,
-              .cart-box .count .btn-remove>.sicon-remove {
-                width: 48px;
-                height: 48px;
-                fill: #00a0dc;
-              }
 </style>

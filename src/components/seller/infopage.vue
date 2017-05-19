@@ -11,7 +11,7 @@
         <h2>优惠信息</h2>
         <ul class="supports-list">
           <li v-for="item of seller.supports">
-            <i :class="getIconType(item.type)"></i>{{item.description}}
+            <i :class="item.type>=0?'icon icon-'+item.type:''"></i>{{item.description}}
           </li>
         </ul>
         <h2>商家公告</h2>
@@ -32,24 +32,12 @@ export default {
   computed: {
     ...mapGetters({
       seller: 'getSellerInfo',
-      detailPage: 'getDetailState'
+      detailPage: 'getSellerInfoState'
     })
   },
   methods: {
-    getIconType(type) {
-      switch(type) {
-        case 0: return 'icon icon-0';
-        case 1: return 'icon icon-1';
-        case 2: return 'icon icon-2';
-        case 3: return 'icon icon-3';
-        case 4: return 'icon icon-4';
-      }
-    },
-    showDetail() {
-      this.$store.commit(types.SHOW_DETAIL);
-    },
     hideDetail() {
-      this.$store.commit(types.HIDE_DETAIL);
+      this.$store.commit(types.HIDE_FDETAIL);
     }
   }
 }
