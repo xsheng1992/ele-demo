@@ -1,6 +1,8 @@
 # ele-demo
 
-> A Vue.js project
+> vue2.0写的饿了么模仿页面
+
+使用了vue、vue-router、vuex和iscroll写的页面。
 
 ## Build Setup
 
