@@ -27,7 +27,7 @@
 <script type="text/ecmascript-6">
 import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
-import counter from './counter.vue'
+import counter from './part/counter.vue'
 
 export default {
   components: {

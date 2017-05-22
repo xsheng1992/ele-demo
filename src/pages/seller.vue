@@ -47,6 +47,7 @@ export default {
     }
   },
   created() {
+    this.location = this.$route.path;
     this.$store.dispatch('getData', {id: '0001'});
   }
 }

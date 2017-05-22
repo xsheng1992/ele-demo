@@ -29,8 +29,8 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import counter from '../components/seller/counter.vue'
-import rate from '../components/seller/rate.vue'
+import counter from './part/counter.vue'
+import rate from './part/rate.vue'
 
 export default {
 	components: {
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .foodDetail {
 	width: 100%;
 	height: 100%;

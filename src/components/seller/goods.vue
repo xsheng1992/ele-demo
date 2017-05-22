@@ -1,53 +1,51 @@
 <template>
-  <transition name="slide">
-    <div class="goods-page">
-      <div class="type-list">
-        <div id="typeWrapper" class="wrapper">
-          <div class="scroller">
-            <ul>
-              <li v-for="(item, index) of typeList" @click="scrollTo(index)" :class="{active: typeIndex === index}">
-                <div class="cell">
-                  <i :class="item.type>=0?'icon icon2-'+item.type:''"></i>{{item.name}}
+  <div class="goods-page">
+    <div class="type-list">
+      <div id="typeWrapper" class="wrapper">
+        <div class="scroller">
+          <ul>
+            <li v-for="(item, index) of typeList" @click="scrollTo(index)" :class="{active: typeIndex === index}">
+              <div class="cell">
+                <i :class="item.type>=0?'icon icon2-'+item.type:''"></i>{{item.name}}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="goods-list">
+      <div id="goodsWrapper" class="wrapper">
+        <div class="scroller">
+          <div v-for="(type, index) of goods" :id="'col'+index">
+            <p class="type-title">{{type.name}}</p>
+            <ul class="type-foods">
+              <li v-for="foods of type.foods" @click="showFoodDetail(foods)">
+                <div class="food-icon">
+                  <img :src="foods.icon">
+                </div>
+                <div class="food-text">
+                  <h3>{{foods.name}}</h3>
+                  <p v-if="foods.description" class="description">{{foods.description}}</p>
+                  <p>
+                    <span v-if="foods.sellCount">月售{{foods.sellCount}}份</span>
+                    <span v-if="foods.rating">好评率{{foods.rating}}%</span>
+                  </p>
+                  <counter :foodData="foods"></counter>
                 </div>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="goods-list">
-        <div id="goodsWrapper" class="wrapper">
-          <div class="scroller">
-            <div v-for="(type, index) of goods" :id="'col'+index">
-              <p class="type-title">{{type.name}}</p>
-              <ul class="type-foods">
-                <li v-for="foods of type.foods" @click="showFoodDetail(foods)">
-                  <div class="food-icon">
-                    <img :src="foods.icon">
-                  </div>
-                  <div class="food-text">
-                    <h3>{{foods.name}}</h3>
-                    <p v-if="foods.description" class="description">{{foods.description}}</p>
-                    <p>
-                      <span v-if="foods.sellCount">月售{{foods.sellCount}}份</span>
-                      <span v-if="foods.rating">好评率{{foods.rating}}%</span>
-                    </p>
-                    <counter :foodData="foods"></counter>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <router-view></router-view>
     </div>
-  </transition>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
 import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
-import counter from './counter.vue'
+import counter from './part/counter.vue'
 
 let goodsScroller = ''
 

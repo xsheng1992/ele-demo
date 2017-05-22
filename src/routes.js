@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import List from './pages/list.vue'
 import Seller from './pages/seller.vue'
 import Goods from './components/seller/goods.vue'
-import foodDetail from './pages/foodDetail.vue'
+import foodDetail from './components/seller/foodDetail.vue'
+import shopDetail from './components/seller/shopDetail.vue'
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,7 @@ export default new VueRouter ({
           ]
         },
         {path: 'rate', component: Goods},
-        {path: 'shop', component: Goods}
+        {path: 'shop', component: shopDetail}
       ]
     },
     {path: '*', redirect: '/'}

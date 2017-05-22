@@ -25,7 +25,7 @@
 <script type="text/ecmascript-6">
 import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
-import rankstar from './part/rankstar.vue'
+import rankstar from './rankstar.vue'
 
 export default {
   components: {
