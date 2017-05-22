@@ -5,6 +5,7 @@ import Seller from './pages/seller.vue'
 import Goods from './components/seller/goods.vue'
 import foodDetail from './components/seller/foodDetail.vue'
 import shopDetail from './components/seller/shopDetail.vue'
+import shopRate from './components/seller/shopRate.vue'
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,7 @@ export default new VueRouter ({
             {path: 'detail', component: foodDetail}
           ]
         },
-        {path: 'rate', component: Goods},
+        {path: 'rate', component: shopRate},
         {path: 'shop', component: shopDetail}
       ]
     },

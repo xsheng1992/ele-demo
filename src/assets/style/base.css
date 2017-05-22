@@ -114,3 +114,13 @@ a {
   background: url(../images/icons/guarantee_4@2x.png) no-repeat;
   background-size: 100%;
 }
+/*推荐、吐槽图标*/
+.icon-thumb-bad,
+.icon-thumb-good {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  fill: #b7bbbf;
+  vertical-align: middle;
+}
+.icon-thumb-good { fill: #00a0dc;}

@@ -7,6 +7,7 @@ export const SHOW_CDETAIL = 'cart/SHOW_DETAIL'
 export const HIDE_CDETAIL = 'cart/HIDE_DETAIL'
 export const CLEAR_CART = 'CLEAR_CART'
 export const SET_FOOD = 'SET_FOOD'
+export const SET_RATINGS = 'SET_RATINGS'
 
 /*cart*/
 export const ADD_GOOD = 'ADD_GOOD'

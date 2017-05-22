@@ -22,6 +22,7 @@
     </div>
 
     <div class="rates">
+      <!--商品评价-->
       <ul v-if="pageType === 'food'">
         <li v-for="item in rateFilter">
           <p class="time-user">
@@ -41,6 +42,32 @@
           </p>
         </li>
       </ul>
+      <!--商店评价-->
+      <ul v-else="">
+        <li v-for="item in rateFilter">
+          <div class="avatar">
+            <div class="icon">
+              <img :src="item.avatar">
+            </div>
+            <div class="user">
+              <p class="name">{{item.username}}</p>
+              <p class="rank">
+                <rank-star type="vsmall" :score="item.score"></rank-star>
+                <span v-if="item.deliveryTime">{{item.deliveryTime}}分钟送达</span>
+              </p>
+            </div>
+            <div class="time">{{new Date(item.rateTime).toLocaleString()}}</div>
+          </div>
+          <div class="content">
+            <p class="text">{{item.text}}</p>
+            <p class="icons">
+              <svg class="icon-thumb-bad" v-if="item.rateType"><use xlink:href="#sicon-thumb_down"></use></svg>
+              <svg class="icon-thumb-good" v-else=""><use xlink:href="#sicon-thumb_up"></use></svg>
+              <span class="food" v-for="fd in item.recommend">{{fd}}</span>
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
 
   </div>
@@ -49,6 +76,7 @@
 <script type="text/ecmascript-6">
 import {mapGetters} from 'vuex'
 import * as types from '../../../store/mutation-types'
+import rankstar from './rankstar.vue'
 
 export default {
   data() {
@@ -59,9 +87,13 @@ export default {
     }
   },
   props: ['pageType'],
+  components: {
+    'rank-star': rankstar
+  },
   computed: {
     ...mapGetters({
-      foodRate: 'getFoodRate'
+      foodRate: 'getFoodRate',
+      sellerRate: 'getRatings'
     }),
     rateFilter() {
       let rateList = this.hasText ? this.rate.filter(item=>item.text!=="") : this.rate;
@@ -69,8 +101,8 @@ export default {
     }
   },
   created() {
-    if(!this.foodRate) this.$router.push('/seller/goods');
-    this.rate = this.pageType === 'food' ? this.foodRate : this.foodRate;
+    if(!this.foodRate && this.pageType === 'food') this.$router.push('/seller/goods');
+    this.rate = this.pageType === 'food' ? this.foodRate : this.sellerRate;
   }
 }
 </script>
@@ -188,13 +220,82 @@ export default {
           font-size: 20px;
           font-weight: 200;
         }
-      .icon-thumb-bad,
-      .icon-thumb-good {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        fill: #b7bbbf;
-        vertical-align: middle;
+      
+  /*商家评价*/
+  .avatar {
+    display: flex;
+    margin-bottom: 12px;
+  }
+    .avatar>.icon {
+      width: 80px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+      .avatar>.icon>img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
       }
-      .icon-thumb-good { fill: #00a0dc;}
+    .avatar>.time {
+      width: 220px;
+      flex-shrink: 0;
+      text-align: right;
+      font-size: 20px;
+      font-weight: 200;
+      color: rgb(147,153,159);
+      line-height: 24px;
+    }
+    .avatar>.user {
+      width: 100%;
+    }
+      .avatar>.user>p.name {
+        font-size: 20px;
+        color: rgb(7,17,27);
+        line-height: 24px;
+        margin-bottom: 7px;
+      }
+      .avatar>.user>p.rank {
+        font-size: 20px;
+        font-weight: 200;
+        color: rgb(147,153,159);
+        line-height: 24px;
+      }
+        .avatar>.user>p.rank span { 
+          margin-left: 12px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+  .content {
+    padding-left: 80px;
+  }
+    .content>p.text {
+      font-size: 24px;
+      line-height: 36px;
+      color: rgb(7,17,27);
+      text-align: justify;
+      margin-bottom: 16px;
+    }
+    .content>p.icons>svg, .content>p.icons>span { 
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 4px;
+    }
+    .content>p.icons>svg { 
+      line-height: 32px;
+      margin-right: 16px;
+    }
+    .content>p.icons>span {
+      font-size: 18px;
+      color: rgb(147,153,159);
+      line-height: 30px;
+      height: 32px;
+      border: 1px solid rgba(7,17,21,.1);
+      border-radius: 2px;
+      padding: 0 12px;
+      max-width: 108px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .content>p.icons>span+span { margin-left: 16px;}
 </style>

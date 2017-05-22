@@ -7,5 +7,6 @@ export default {
   	});
   	dispatch('setSellerData', {sellerData: shop.seller});
   	dispatch('setGoodsData', {goodsData: shop.goods});
+  	dispatch('setRatesData', {ratesData: shop.ratings});
   }
 }

@@ -8,7 +8,7 @@
 						<div class="name">
 							<h1>{{seller.name}}</h1>
 							<p>
-								<rank-star type="small"></rank-star>
+								<rank-star type="small" :score="seller.score"></rank-star>
 								<span class="ratecount">({{seller.ratingCount}})</span>
 								<span class="sellcount">月售{{seller.sellCount}}单</span>
 							</p>

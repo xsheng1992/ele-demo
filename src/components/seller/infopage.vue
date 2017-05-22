@@ -4,7 +4,7 @@
       <div class="inner-box">
         <h1>{{seller.name}}</h1>
         <div class="text-center">
-          <rank-star></rank-star>
+          <rank-star :score="seller.score"></rank-star>
         </div>
         <h2>优惠信息</h2>
         <ul class="supports-list">
