@@ -46,8 +46,13 @@
 import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
 import counter from './part/counter.vue'
+import {
+  creatScroller,
+  scrollerRefesh
+} from '../../util/iscrollfunc.js'
 
-let goodsScroller = ''
+let goodsScroller = null,
+    typeScroller = null;
 
 export default {
   data(){
@@ -103,10 +108,20 @@ export default {
   },
   mounted() {
     let vm = this;
-    //延时等待dom渲染完成
-    setTimeout(function(){
-      new IScroll('#typeWrapper', {mouseWheel: true, click: true});
-      goodsScroller = new IScroll('#goodsWrapper', {mouseWheel: true, click: true});
+    //商品类别列表滚动
+    creatScroller('#typeWrapper', {
+      mouseWheel: true, 
+      click: true
+    }).then(value=>{
+      typeScroller = value;
+    });
+
+    //商品列表滚动
+    creatScroller('#goodsWrapper', {
+      mouseWheel: true, 
+      click: true
+    }).then(value=>{
+      goodsScroller = value;
 
       //获取各类别的高度 
       let typelist = document.querySelector(".goods-list .scroller").childNodes
@@ -117,7 +132,13 @@ export default {
       goodsScroller.on('scrollEnd', function(){
         vm.setTypeIndex(this.y);
       });
-    }, 100);
+    });
+  },
+  beforeDestroy() {
+    goodsScroller.destroy();
+    goodsScroller = null;
+    typeScroller.destroy();
+    typeScroller = null;
   }
 }
 </script>

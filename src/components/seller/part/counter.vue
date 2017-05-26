@@ -40,6 +40,7 @@ export default {
     },
     removeItem(name) {
       this.$store.commit(types.REMOVE_GOOD, name);
+      this.$emit('countChange');
     },
     hasGood(name) {
       let good = false;

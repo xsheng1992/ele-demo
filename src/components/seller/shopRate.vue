@@ -27,7 +27,7 @@
 					</div>
 				</div>
 				<!--公告与活动-->
-				<seller-rate pageType="seller"></seller-rate>
+				<seller-rate pageType="seller" @changeType="onChangeType"></seller-rate>
 
 			</div>
 		</div>
@@ -38,6 +38,12 @@
 import {mapGetters} from 'vuex'
 import rankstar from './part/rankstar.vue'
 import rate from './part/rate.vue'
+import {
+	creatScroller,
+	scrollerRefesh
+} from '../../util/iscrollfunc.js'
+
+let rateScroller = null;
 
 export default {
 	components: {
@@ -49,10 +55,23 @@ export default {
       seller: 'getSellerInfo'
     })
   },
+  methods: {
+  	onChangeType() {
+  		scrollerRefesh(rateScroller);
+  	}
+  },
   mounted() {
-  	setTimeout(function(){
-  		new IScroll('#shopRateWrapper', {mouseWheel: true, tap: true, click: true});
-  	}, 100);
+  	creatScroller('#shopRateWrapper', {
+  		mouseWheel: true, 
+  		tap: true,
+  		click: true
+  	}).then(value=>{
+  		rateScroller = value;
+  	});
+  },
+  beforeDestroy() {
+  	rateScroller.destroy();
+  	rateScroller = null;
   }
 }
 </script>

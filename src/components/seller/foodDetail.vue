@@ -11,7 +11,7 @@
   							<p class="info"><span>月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span></p>
   							<counter :foodData="food" :foodDetail="true"></counter>
   						</div>
-				      <button class="backbtn" @click="$router.go(-1)">
+				      <button class="backbtn" @click="$router.push('/seller/goods')">
 				        <svg class="icon-back"><use xlink:href="#sicon-arrow_lift"></use></svg>
 				      </button>
   					</div>
@@ -19,7 +19,7 @@
   						<h1>商品介绍</h1>
   						<p>{{food.info || food.name}}</p>
   					</div>
-  					<food-rate pageType="food"></food-rate>
+  					<food-rate pageType="food" @changeType="onChangeType"></food-rate>
   				</div>
   			</div>
   		</div>
@@ -31,6 +31,12 @@
 import {mapGetters} from 'vuex'
 import counter from './part/counter.vue'
 import rate from './part/rate.vue'
+import {
+	creatScroller,
+	scrollerRefesh
+} from '../../util/iscrollfunc.js'
+
+let foodScroller = null;
 
 export default {
 	components: {
@@ -42,8 +48,22 @@ export default {
       food: 'getFoodDetail'
     })
   },
+  methods: {
+  	onChangeType() {
+  		scrollerRefesh(foodScroller);
+  	}
+  },
   mounted() {
-  	new IScroll('#foodDetailWrapper', {mouseWheel: true, click: true});
+  	creatScroller('#foodDetailWrapper', {
+  		mouseWheel: true, 
+  		click: true
+  	}).then(value=>{
+  		foodScroller = value;
+  	});
+  },
+  beforeDestroy() {
+  	foodScroller.destroy();
+		foodScroller = null;
   }
 }
 </script>

@@ -13,7 +13,7 @@
       <seller-cart></seller-cart>
     </div>
     <seller-infopage></seller-infopage>
-    <cart-detail></cart-detail>
+    <cart-detail v-if="cartDetail"></cart-detail>
   </div>
 </template>
 
@@ -38,7 +38,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      detailPage: 'getSellerInfoState'
+      detailPage: 'getSellerInfoState',
+      cartDetail: 'getCartDetailState'
     })
   },
   watch: {

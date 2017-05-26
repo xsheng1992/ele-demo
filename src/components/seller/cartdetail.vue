@@ -13,7 +13,7 @@
               <li v-for="item in cart">
                 <div class="name">{{item.name}}</div>
                 <div class="counterbox">
-                  <counter :foodData="item"></counter>
+                  <counter :foodData="item" @countChange="onCountChange"></counter>
                 </div>
               </li>
             </ul>
@@ -28,6 +28,12 @@
 import {mapGetters} from 'vuex'
 import * as types from '../../store/mutation-types'
 import counter from './part/counter.vue'
+import {
+  creatScroller,
+  scrollerRefesh
+} from '../../util/iscrollfunc.js'
+
+let cartScroller = null;
 
 export default {
   components: {
@@ -49,7 +55,24 @@ export default {
     },
     hideDetail() {
       this.$store.commit(types.HIDE_CDETAIL);
+    },
+    onCountChange() {
+      scrollerRefesh(cartScroller);
     }
+  },
+  mounted() {
+    /*插入元素后绑定iscroll*/
+    creatScroller('#cartListWrapper', {
+      mouseWheel: true, 
+      tap: true,
+      click: true
+    }).then(value=>{
+      cartScroller = value;
+    });
+  },
+  beforeDestroy() {
+    cartScroller.destroy();
+    cartScroller = null;
   }
 }
 </script>

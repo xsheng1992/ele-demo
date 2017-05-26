@@ -37,10 +37,6 @@ export default {
     showDetail() {
       if(this.cart) {
         this.$store.commit(types.SHOW_CDETAIL);
-        /*插入元素后绑定iscroll*/
-        setTimeout(function(){
-          new IScroll('#cartListWrapper', {mouseWheel: true, tap: true, click: true});
-        }, 100);
       }
     }
   }

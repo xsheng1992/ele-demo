@@ -76,6 +76,13 @@
 <script>
 import {mapGetters} from 'vuex'
 import rankstar from './part/rankstar.vue'
+import {
+	creatScroller,
+	scrollerRefesh
+} from '../../util/iscrollfunc.js'
+
+let shopWrapper = null,
+		shopImgWrapper = null;
 
 export default {
 	data() {
@@ -92,10 +99,31 @@ export default {
     })
   },
   mounted() {
-  	setTimeout(function(){
-  		new IScroll('#shopDetailWrapper', {mouseWheel: true, tap: true, click: true});
-  		new IScroll('#shopImagesWrapper', {scrollX: true, scrollY: false, mouseWheel: true, click: true});
-  	}, 100);
+  	//商店详情页滚动
+  	creatScroller('#shopDetailWrapper', {
+  		mouseWheel: true, 
+  		tap: true,
+  		click: true
+  	}).then(value=>{
+  		shopWrapper = value;
+  	});
+
+  	//商家实景图片横向滚动
+  	creatScroller('#shopImagesWrapper', {
+  		scrollX: true,
+  		scrollY: false,
+  		mouseWheel: true, 
+  		tap: true,
+  		click: true
+  	}).then(value=>{
+  		shopImgWrapper = value;
+  	});
+  },
+  beforeDestroy() {
+  	shopWrapper.destroy();
+  	shopWrapper = null;
+  	shopImgWrapper.destroy();
+  	shopImgWrapper = null;
   }
 }
 </script>

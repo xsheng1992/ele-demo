@@ -10,7 +10,6 @@ import shopRate from './components/seller/shopRate.vue'
 Vue.use(VueRouter);
 
 export default new VueRouter ({
-  mode: 'history',
   routes: [
     {path: '/', component: List},
     {

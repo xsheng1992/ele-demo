@@ -3,18 +3,18 @@
     <div class="title">
       <h1>商品评价</h1>
       <ul class="btns">
-        <li :class="{active: rateType===-1}" @click="rateType=-1">
+        <li :class="{active: rateType===-1}" @click="changeType(-1)">
           全部 <span class="small">{{rate.length}}</span>
         </li>
-        <li :class="{active: rateType===0}" @click="rateType=0">
+        <li :class="{active: rateType===0}" @click="changeType(0)">
           推荐 <span class="small">{{rate.filter(item=>item.rateType===0).length}}</span>
         </li>
-        <li :class="{active: rateType===1}" @click="rateType=1">
+        <li :class="{active: rateType===1}" @click="changeType(1)">
           吐槽 <span class="small">{{rate.filter(item=>item.rateType===1).length}}</span>
         </li>
       </ul>
       <div class="text-rate">
-        <span @click="hasText = !hasText">
+        <span @click="showTextRate">
           <svg class="icon-check" :class="{active: hasText}"><use xlink:href="#sicon-check_circle"></use></svg>
           <span class="icon-text">只看有内容的评价</span>
         </span>
@@ -98,6 +98,16 @@ export default {
     rateFilter() {
       let rateList = this.hasText ? this.rate.filter(item=>item.text!=="") : this.rate;
       return (this.rateType === -1) ? rateList : rateList.filter(item=>item.rateType===this.rateType);
+    }
+  },
+  methods: {
+    changeType(type) {
+      this.rateType = type;
+      this.$emit('changeType');
+    },
+    showTextRate() {
+      this.hasText = !this.hasText;
+      this.$emit('changeType');
     }
   },
   created() {
